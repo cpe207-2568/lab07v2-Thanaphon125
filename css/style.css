@@ -1,17 +1,36 @@
-/* override placeholder color of bootstrap */
-
+/* placeholder สีเทา */
 .form-control::placeholder {
-  /* Chrome, Firefox, Opera, Safari 10.1+ */
-  opacity: 1; /* Firefox */
+  opacity: 1;
   color: rgb(167, 164, 164);
 }
 
 .form-control:-ms-input-placeholder {
-  /* Internet Explorer 10-11 */
   color: red;
 }
 
 .form-control::-ms-input-placeholder {
-  /* Microsoft Edge */
   color: red;
+}
+
+/* default, valid, invalid */
+.form-control.default {
+  border: 1px solid #ced4da;
+}
+
+.form-control.is-valid {
+  border-color: #198754 !important;
+}
+
+.form-control.is-invalid {
+  border-color: #dc3545 !important;
+}
+
+.invalid-feedback {
+  font-size: 0.85rem;
+  color: #dc3545;
+}
+
+.valid-feedback {
+  font-size: 0.85rem;
+  color: #198754;
 }
