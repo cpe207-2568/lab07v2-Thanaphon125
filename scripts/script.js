@@ -1,24 +1,26 @@
-// reference for input fields
+
 const firstNameInput = document.querySelector("#first-name-input");
 const lastNameInput = document.querySelector("#last-name-input");
-const studentIdInput = document.querySelector("#student-id-input");
+const emailInput = document.querySelector("#email-input"); 
 const passwordInput = document.querySelector("#password-input");
 const passwordConfirmInput = document.querySelector("#password-confirm-input");
 
-// reference for buttons
+
 const submitBtn = document.querySelector("#submit-btn");
 const resetBtn = document.querySelector("#reset-btn");
 
-// ✅ ป้องกันไม่ให้ใส่อักขระที่ไม่ใช่ตัวเลข
-studentIdInput.addEventListener("input", () => {
-  studentIdInput.value = studentIdInput.value.replace(/\D/g, "");
-  studentIdInput.classList.remove("is-valid", "is-invalid");
-});
 
-// reset input state when user types (กลับเป็นสีเทา)
+function validateEmail(email) {
+  var atPos = email.indexOf("@");
+  var dotPos = email.lastIndexOf(".");
+  return atPos > 0 && dotPos > atPos + 1 && dotPos < email.length - 1;
+}
+
+
 [
   firstNameInput,
   lastNameInput,
+  emailInput, 
   passwordInput,
   passwordConfirmInput,
 ].forEach((input) => {
@@ -27,15 +29,15 @@ studentIdInput.addEventListener("input", () => {
   };
 });
 
-// submit button click
+
 submitBtn.onclick = () => {
   let isFirstNameOk = false,
     isLastNameOk = false,
-    isStudentIdOk = false,
+    isEmailOk = false,
     isPasswordOk = false,
     isConfirmOk = false;
 
-  // validate first name
+  
   if (firstNameInput.value.trim() === "") {
     firstNameInput.classList.add("is-invalid");
   } else {
@@ -43,7 +45,7 @@ submitBtn.onclick = () => {
     isFirstNameOk = true;
   }
 
-  // validate last name
+  
   if (lastNameInput.value.trim() === "") {
     lastNameInput.classList.add("is-invalid");
   } else {
@@ -51,15 +53,15 @@ submitBtn.onclick = () => {
     isLastNameOk = true;
   }
 
-  // ✅ validate student ID → ต้องเป็นตัวเลข 9 หลักเท่านั้น
-  if (/^\d{9}$/.test(studentIdInput.value)) {
-    studentIdInput.classList.add("is-valid");
-    isStudentIdOk = true;
+  
+  if (!validateEmail(emailInput.value.trim())) {
+    emailInput.classList.add("is-invalid");
   } else {
-    studentIdInput.classList.add("is-invalid");
+    emailInput.classList.add("is-valid");
+    isEmailOk = true;
   }
 
-  // validate password
+  
   if (passwordInput.value.trim().length < 6) {
     passwordInput.classList.add("is-invalid");
   } else {
@@ -67,7 +69,7 @@ submitBtn.onclick = () => {
     isPasswordOk = true;
   }
 
-  // validate confirm password
+  
   if (
     passwordConfirmInput.value !== passwordInput.value ||
     passwordConfirmInput.value.trim() === ""
@@ -78,11 +80,11 @@ submitBtn.onclick = () => {
     isConfirmOk = true;
   }
 
-  // check all valid → show alert
+  
   if (
     isFirstNameOk &&
     isLastNameOk &&
-    isStudentIdOk &&
+    isEmailOk &&
     isPasswordOk &&
     isConfirmOk
   ) {
@@ -90,7 +92,7 @@ submitBtn.onclick = () => {
   }
 };
 
-// reset button click
+
 resetBtn.onclick = () => {
   document.querySelectorAll(".form-control").forEach((input) => {
     input.value = "";
